@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'UpdateCourse' %}" method="post">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <h5 class="form-title"><span>Edit Course</span></h5>
+                        {% for message in messages %}
+                        {% if message.tags == 'success' %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{message}}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% elif message.tags == 'error' %}
+                        <div class="alert alert-error alert-dismissible fade show" role="alert">
+                            <strong>{{message}}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label>Course Name</label>
+                            <input type="text" class="form-control" value="{{course.name}}" name="course_name" required>
+                            <input type="text" class="form-control" value="{{course.id}}" name="course_id" hidden>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label>Departemnt Name</label>
+                            <input type="text" class="form-control" value="{{course.dep.name}}" name="dep_name"
+                                readonly>
+                            <input type="text" class="form-control" value="{{course.dep.id}}" name="dep_id" hidden>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Edit Course</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
